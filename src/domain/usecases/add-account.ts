@@ -1,4 +1,3 @@
-import { AccountModel } from '../models/account'
 
 export interface AddAccountModel {
   name: string
@@ -6,5 +5,5 @@ export interface AddAccountModel {
   password: string
 }
 export interface AddAccount{
-  add: (account: AddAccountModel) => Promise<AccountModel>
+  add: (account: AddAccountModel) => Promise<boolean>
 }
