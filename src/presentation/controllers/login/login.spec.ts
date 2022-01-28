@@ -1,7 +1,6 @@
-import { Authentication } from '../../../domain/usecases/authentication'
-import { unauthorized } from '../../helpers/http-helpers'
-import { HttpRequest } from '../../protocols'
 import { LoginController } from './login'
+import { unauthorized } from '../../helpers/http-helpers'
+import { HttpRequest, Authentication } from './login-protocols'
 
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
