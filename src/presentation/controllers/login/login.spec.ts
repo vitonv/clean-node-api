@@ -1,4 +1,5 @@
 import { Authentication } from '../../../domain/usecases/authentication'
+import { unauthorized } from '../../helpers/http-helpers'
 import { HttpRequest } from '../../protocols'
 import { LoginController } from './login'
 
@@ -36,5 +37,11 @@ describe('Login Controller', () => {
     const authSpy = jest.spyOn(authenticationStub, 'auth')
     await sut.handle(makeFakeRequest())
     expect(authSpy).toHaveBeenCalledWith('any_mail@mail.com', 'any_password')
+  })
+  it('Should return 401 if invalid credentials is provided', async () => {
+    const { sut, authenticationStub } = makeSut()
+    jest.spyOn(authenticationStub, 'auth').mockResolvedValueOnce(null)
+    const httpResponse = await sut.handle(makeFakeRequest())
+    expect(httpResponse).toEqual(unauthorized())
   })
 })
