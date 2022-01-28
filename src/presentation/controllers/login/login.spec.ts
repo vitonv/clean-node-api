@@ -1,5 +1,5 @@
 import { LoginController } from './login'
-import { serverError, unauthorized } from '../../helpers/http-helpers'
+import { ok, serverError, unauthorized } from '../../helpers/http-helpers'
 import { HttpRequest, Authentication } from './login-protocols'
 
 const makeAuthentication = (): Authentication => {
@@ -48,5 +48,10 @@ describe('Login Controller', () => {
     jest.spyOn(authenticationStub, 'auth').mockRejectedValueOnce(new Error())
     const httpResponse = await sut.handle(makeFakeRequest())
     expect(httpResponse).toEqual(serverError(new Error()))
+  })
+  it('Should return 200 on success', async () => {
+    const { sut } = makeSut()
+    const httpResponse = await sut.handle(makeFakeRequest())
+    expect(httpResponse).toEqual(ok({ accessToken: 'any_token' }))
   })
 })
