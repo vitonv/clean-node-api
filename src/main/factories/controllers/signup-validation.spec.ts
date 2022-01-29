@@ -1,4 +1,5 @@
-import { CompareFieldsValidation, Validation, RequiredFieldValidation, ValidationComposite } from '../../../presentation/helpers/validators'
+import { CompareFieldsValidation, Validation, RequiredFieldValidation, ValidationComposite, EmailValidation } from '../../../presentation/helpers/validators'
+import { EmailValidatorAdapter } from '../../../utils/email-validator-adapter'
 
 import { makeSignUpValidation } from './signup-validation'
 
@@ -12,6 +13,7 @@ describe('SignUpValidation Factory', () => {
       validations.push(new RequiredFieldValidation(field))
     }
     validations.push(new CompareFieldsValidation('password', 'passwordConfirmation'))
+    validations.push(new EmailValidation('email', new EmailValidatorAdapter()))
     expect(ValidationComposite).toHaveBeenCalledWith(validations)
   })
 })
