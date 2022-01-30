@@ -5,7 +5,7 @@ import { LogControllerDecorator } from '../../decorators/log-controller-decorato
 import { makeAuthentication } from '../services/authentication'
 import { makeLoginValidation } from './login-validation-factory'
 
-export const makeAuthenticationController = (): Controller => {
+export const makeLoginController = (): Controller => {
   const loginController = new LoginController(makeLoginValidation(), makeAuthentication())
   const logErrorRepository = new LogMongoRepository()
   return new LogControllerDecorator(loginController, logErrorRepository)
