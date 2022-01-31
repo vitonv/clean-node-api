@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "rimraf dist && tsc",
+    "up":"npm run build && docker-compose up",
     "start": "node dist/main/server.js",
     "dev": "tsnd --transpile-only --ignore-watch node_modules src/main/server.ts",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
