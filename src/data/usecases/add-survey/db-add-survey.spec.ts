@@ -3,8 +3,8 @@ import { DbAddSurvey } from './db-add-survey'
 import { AddSurveyRepository } from './db-add-survey-protocols'
 const makeAddSurveyRepository = () => {
   class AddSurveyRepositoryStub implements AddSurveyRepository {
-    async add (surveyData: AddSurveyModel): Promise<boolean>{
-      return Promise.resolve(true)
+    async add (surveyData: AddSurveyModel): Promise<void>{
+      return Promise.resolve()
     }
   }
   return new AddSurveyRepositoryStub()
