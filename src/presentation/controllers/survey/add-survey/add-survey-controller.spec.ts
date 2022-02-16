@@ -1,5 +1,5 @@
 
-import { AddSurvey, badRequest, HttpRequest, Validation } from './add-survey-controller-protocols'
+import { AddSurvey, badRequest, HttpRequest, serverError, Validation } from './add-survey-controller-protocols'
 import { AddSurveyController } from './add-survey-controller'
 import { AddSurveyModel } from '../../../../domain/usecases/add-survey'
 
@@ -67,5 +67,12 @@ describe('AddSurvey Controller', () => {
     const httpRequest = makeFakeRequest()
     await sut.handle(httpRequest)
     expect(addSpy).toHaveBeenCalledWith(httpRequest.body)
+  })
+  it('Should return 500 if AddSurvey throws', async() => {
+    const { sut,addSurveyStub } = makeSut()
+    jest.spyOn(addSurveyStub,'add').mockRejectedValueOnce(new Error())
+    const httpRequest = makeFakeRequest()
+    const httpResponse = await sut.handle(httpRequest)
+    expect(httpResponse).toEqual(serverError(new Error()))
   })
 })
