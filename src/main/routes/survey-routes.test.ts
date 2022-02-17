@@ -16,21 +16,21 @@ describe('SignUp Routes', () => {
     await surveyCollection.deleteMany({})
   })
 
-  describe('POST /signup', () => {
-    it('Should return 204 on add survey success', async () => {
+  describe('POST /surveys', () => {
+    it('Should return 403 on add survey without accessToken', async () => {
       await request(app)
         .post('/api/surveys')
         .send({
-            question: 'Question',
-            answers: [{
-                answer:'Answer 1',
-                image:'http://imagename.com'
-            },
-            {
-                answer:'Answer 2',
-            }]
+          question: 'Question',
+          answers: [{
+            answer: 'Answer 1',
+            image: 'http://imagename.com'
+          },
+          {
+            answer: 'Answer 2'
+          }]
         })
-        .expect(204)
+        .expect(403)
     })
   })
 })
